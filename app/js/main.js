@@ -109,7 +109,7 @@ window.onload = function () {
     for (let i = 0; i < this.length - 1; i++) {
       if (this[i].type === 'file') {
         let str = this[i].value.slice(this[i].value.lastIndexOf("."))
-        let testfile = (str === '.php') || (str === '.doc') || (str === '.docs') || (str === '.txt') ? flag = 1 : flag = 0;
+        let testfile = (str === '.pdf') || (str === '.doc') || (str === '.docs') || (str === '.txt') ? flag = 1 : flag = 0;
       }
       if (!this[i].value.replace(/^\s+|\s+$/g, '')) {
         this[i].parentNode.classList.add('error');
