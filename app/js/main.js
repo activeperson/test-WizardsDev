@@ -9,10 +9,12 @@ window.onload = function () {
   let modalClose = document.getElementsByClassName('modal__close');
   let buttonContacts = document.querySelector('.header__link--border');
   let mobileBurger = document.querySelector('.header__burger');
-  let header =  document.querySelector('.header');
+  let header = document.querySelector('.header');
   let allItemsAccordion = document.querySelectorAll('.wrapper__title');
   let menuItem = document.querySelectorAll('.menu-item');
   let bOdy = document.body;
+  let inputs = document.querySelectorAll('.form__input');
+  let form = document.querySelector(".form");
   // -----
   // --------------------------- //
   function togglePopup() {
@@ -24,8 +26,8 @@ window.onload = function () {
   buttonContacts.onclick = function () {
     modalBox.classList.toggle('active');
   }
-  bOdy.addEventListener('keydown', function(e){
-    if(e.which === 27){
+  bOdy.addEventListener('keydown', function (e) {
+    if (e.which === 27) {
       togglePopup();
     }
   }, false);
@@ -33,12 +35,11 @@ window.onload = function () {
   // --------------------------- //
 
 
-  if(window.innerWidth < 768){
-    for(let i = 0; i < allItemsAccordion.length; i++){
-      console.log(allItemsAccordion.length);
-      allItemsAccordion[i].addEventListener('click', function(e){
+  if (window.innerWidth < 768) {
+    for (let i = 0; i < allItemsAccordion.length; i++) {
+      allItemsAccordion[i].addEventListener('click', function (e) {
         this.parentNode.children[2].classList.toggle('active');
-        
+
       });
     }
   }
@@ -48,9 +49,9 @@ window.onload = function () {
 
 
   // --------------------------- //
-  
 
-  mobileBurger.onclick = function(){
+
+  mobileBurger.onclick = function () {
     header.classList.toggle('active-menu');
     document.body.style.overflow = (header.classList.contains('active-menu') ? 'hidden' : '');
   };
@@ -61,10 +62,10 @@ window.onload = function () {
 
 
   for (let i = 0; i < menuItem.length; i++) {
-    if(window.innerWidth > 768){
+    if (window.innerWidth > 768) {
       menuItem[i].addEventListener("mouseenter", toggleMenu, false);
       menuItem[i].addEventListener("mouseleave", toggleMenu, false);
-    }else{
+    } else {
       menuItem[i].addEventListener("click", toggleMenu, false);
     }
 
@@ -78,11 +79,48 @@ window.onload = function () {
     }
   }
 
-  
+  // Событие на INPUT
+  for (let i = 0; i < inputs.length; i++) {
 
+    if(inputs[i].type === 'file'){
+      inputs[i].addEventListener('change', function(e){
+        let customstr = e.target.value.replace(/^.*\\/,'')
+      e.target.labels[0].innerHTML = customstr;
+      }, false);
+    }
+    inputs[i].addEventListener('input', function (e) {
+      if (e.target.name === 'name') {
+        (/^[а-яА-ЯёЁa-zA-Z\s\'\-]{1,}$/.test(e.target.value)) && (e.target.value != '') ? e.target.parentNode.classList.remove('error') : e.target.parentNode.classList.add('error');
+      }
+      if (e.target.name === 'phone') {
+        (/^[\d\s\+\(\)]{1,}$/.test(e.target.value)) && (e.target.value != '') ? e.target.parentNode.classList.remove('error') : e.target.parentNode.classList.add('error');
+      }
+      if (e.target.name === 'email') {
+        (/^(([^А-Яа-я<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(e.target.value)) && (e.target.value != '') ? e.target.parentNode.classList.remove('error') : e.target.parentNode.classList.add('error');
+      }
+    }, false);
+  }
+  //
 
-  
+// Событие на SUBMIT 
+  form.onsubmit = function (e) {
+    e.preventDefault();
+    let flag = 0;
+    for (let i = 0; i < this.length - 1; i++) {
+      if (this[i].type === 'file') {
+        let str = this[i].value.slice(this[i].value.lastIndexOf("."))
+        let testfile = (str === '.php') || (str === '.doc') || (str === '.docs') || (str === '.txt') ? flag = 1 : flag = 0;
+      }
+      if (!this[i].value.replace(/^\s+|\s+$/g, '')) {
+        this[i].parentNode.classList.add('error');
+      } else {
+        this[i].parentNode.classList.remove('error');
+      }
+    }
+    (flag) ? alert('OKAY!') : '';
 
+  }
+//
 
 
   // ----------------------- JQ ---------------- // 

@@ -140,13 +140,22 @@
     <form class="form" action="#">
     
       <div class="form__block">
-        <input class="form__input form__input--name" placeholder="Имя" type="text" name="name">
-        <input class="form__input form__input--phone" placeholder="Телефон" type="text" name="phone">
+        <div class="form__elem">
+            <input class="form__input form__input--name" placeholder="Имя" type="text" name="name">
+        </div>
+        <div class="form__elem">
+            <input class="form__input form__input--phone" placeholder="Телефон" type="text" name="phone">
+        </div>
       </div>
 
       <div class="form__block">
-          <input class="form__input form__input--email" placeholder="Email" type="email" name="email">
-          <input class="form__input form__input--summary" placeholder="Резюме" type="file" name="summary">
+          <div class="form__elem">
+            <input class="form__input form__input--email" placeholder="Email" type="email" name="email">
+          </div>
+          <div class="form__elem">
+            <input class="form__input" id="summary" placeholder="Резюме" type="file" name="summary">
+            <label for="summary" class="form__input--summary">Резюме</label>
+          </div>
       </div>
       <div class="form__button">
           <button class="button">Отправить резюме</button>

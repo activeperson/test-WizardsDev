@@ -346,8 +346,40 @@ html body{
 			justify-content: space-between;
 			align-items: center;
 			margin-bottom: 50px;
-			input{
+			.form__elem{
 				max-width: 450px;
+				width: 100%;
+				&.error{
+					&:before{
+						opacity: 1;
+					}
+				}
+				&:before{
+					content: 'Поле не заполнено или неправильно введены данные!';
+					color: red;
+					opacity: 0;
+					position: absolute;
+					color: red;
+					top: -18px;
+					width: 100%;
+					display: block;
+					left: 15px;
+					font-weight: normal;
+					font-size: 12px;
+					line-height: 14px;
+				}
+				position: relative;
+			}
+			label{
+				cursor: pointer;
+				color: rgba(255, 255, 255, 0.5) !important;
+			}
+			input, label{
+				&#summary{
+					display: none;
+				}
+				display: block;
+				position: relative;
 				font-size: 30px;
 				line-height: 36px;
 				font-weight: 300;
